@@ -1,6 +1,6 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import RentOnGoLogo from "../assets/icons/RentOnGoLogo.png";
-import { Home, Users, Car, Calendar, CreditCard, Settings, LogOut } from "lucide-react";
+import { Home, Users, Car, Calendar, CreditCard, Settings, LogOut, X } from "lucide-react";
 
 const Navbar = () => {
     const navigate = useNavigate();
@@ -31,7 +31,7 @@ const Navbar = () => {
                     <Car size={20} />
                     <span>Vehicles</span>
                 </div>
-                <div className={itemClass("/bookings")}>
+                <div className={itemClass("/bookings")} onClick={() => navigate("/bookings")}>
                     <Calendar size={20} />
                     <span>Bookings</span>
                 </div>

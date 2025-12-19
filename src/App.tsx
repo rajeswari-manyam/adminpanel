@@ -6,7 +6,8 @@ import DashBoard from "./pages/DashBoard";
 import AdminLayout from "./layouts/AdminLayout";
 import Vehicle from "./pages/vehicle";
 import Settings from "./pages/Settings";
-
+import UserManagement from "./pages/Users";
+import BookingsTable from "./pages/Bookings";
 function App() {
   return (
     <BrowserRouter>
@@ -17,8 +18,11 @@ function App() {
 
         {/* Dashboard pages → WITH navbar */}
         <Route element={<AdminLayout />}>
+
           <Route path="/dashboard" element={<DashBoard />} />
+          <Route path="/users" element={<UserManagement />} />
           <Route path="/vehicles" element={<Vehicle />} />
+          <Route path="/bookings"  element={<BookingsTable/>}/>
           <Route path="/settings" element={<Settings />} />
         </Route>
 

@@ -4,9 +4,8 @@ import TopNavbar from "../components/TopNavBar";
 
 const AdminLayout = () => {
     return (
-        <div className="flex min-h-screen">
-
-            {/* LEFT SIDEBAR */}
+        <div className="flex min-h-screen bg-gray-100">
+            {/* Sidebar */}
             <Navbar />
 
             {/* RIGHT SECTION */}
@@ -15,8 +14,8 @@ const AdminLayout = () => {
                 {/* TOP NAVBAR */}
                 <TopNavbar />
 
-                {/* PAGE CONTENT */}
-                <main className="p-6 bg-gray-100 flex-1">
+                {/* Main Content */}
+                <main className="flex-1 p-6 overflow-auto">
                     <Outlet />
                 </main>
 
