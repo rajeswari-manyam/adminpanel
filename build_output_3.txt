@@ -1,0 +1,17 @@
+
+> rentongo-admin@0.1.0 build
+> react-scripts build
+
+Creating an optimized production build...
+Failed to compile.
+
+TS2339: Property 'vehicles' does not exist on type 'UserUI'.
+  [0m [90m 11 |[39m     [33m<[39m[33mtd[39m className[33m=[39m[32m"p-3"[39m[33m>[39m{user[33m.[39memail}[33m<[39m[33m/[39m[33mtd[39m[33m>[39m
+   [90m 12 |[39m     [33m<[39m[33mtd[39m className[33m=[39m[32m"p-3"[39m[33m>[39m{user[33m.[39mphone}[33m<[39m[33m/[39m[33mtd[39m[33m>[39m
+  [31m[1m>[22m[39m[90m 13 |[39m     [33m<[39m[33mtd[39m className[33m=[39m[32m"p-3"[39m[33m>[39m{user[33m.[39mvehicles} {user[33m.[39mvehicles [33m>[39m [35m1[39m [33m?[39m [32m"vehicles"[39m [33m:[39m [32m"vehicle"[39m}[33m<[39m[33m/[39m[33mtd[39m[33m>[39m
+   [90m    |[39m                               [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 14 |[39m     [33m<[39m[33mtd[39m className[33m=[39m[32m"p-3"[39m[33m>[39m{user[33m.[39mjoinDate}[33m<[39m[33m/[39m[33mtd[39m[33m>[39m
+   [90m 15 |[39m     [33m<[39m[33mtd[39m className[33m=[39m[32m"p-3"[39m[33m>[39m
+   [90m 16 |[39m       [33m<[39m[33mspan[39m className[33m=[39m{[32m`px-3 py-1 rounded-full text-sm ${[39m[0m
+
+

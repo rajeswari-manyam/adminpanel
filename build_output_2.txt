@@ -1,0 +1,15 @@
+
+> rentongo-admin@0.1.0 build
+> react-scripts build
+
+Creating an optimized production build...
+Failed to compile.
+
+TS2307: Cannot find module './types' or its corresponding type declarations.
+  [0m[31m[1m>[22m[39m[90m 1 |[39m [36mimport[39m { [33mUser[39m } [36mfrom[39m [32m"./types"[39m[33m;[39m
+   [90m   |[39m                      [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 2 |[39m
+   [90m 3 |[39m [36mexport[39m [36mconst[39m users[33m:[39m [33mUser[39m[] [33m=[39m [
+   [90m 4 |[39m   { id[33m:[39m [35m1[39m[33m,[39m name[33m:[39m [32m"Sravan Kumar"[39m[33m,[39m email[33m:[39m [32m"sravan@example.com"[39m[33m,[39m phone[33m:[39m [32m"9876543210"[39m[33m,[39m vehicles[33m:[39m [35m3[39m[33m,[39m joinDate[33m:[39m [32m"Jan 15, 2024"[39m[33m,[39m status[33m:[39m [32m"Active"[39m[33m,[39m initials[33m:[39m [32m"S"[39m[33m,[39m color[33m:[39m [32m"bg-indigo-500"[39m }[33m,[39m[0m
+
+

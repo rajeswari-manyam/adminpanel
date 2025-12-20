@@ -8,6 +8,10 @@ import Vehicle from "./pages/vehicles/Vehicle";
 import Settings from "./pages/Settings";
 import UserManagement from "./pages/users/UserManagement";
 import Bookings from "./pages/bookings/Bookings";
+import EditProfile from "./pages/Edit";
+import ChangePassword from "./pages/Password";
+import Notifications from "./pages/Notifications";
+import ApplicationSettings from "./pages/Application";
 function App() {
   return (
     <BrowserRouter>

@@ -1,0 +1,15 @@
+
+> rentongo-admin@0.1.0 build
+> react-scripts build
+
+Creating an optimized production build...
+Failed to compile.
+
+TS2307: Cannot find module '../../types/Bookings.types' or its corresponding type declarations.
+  [0m[31m[1m>[22m[39m[90m 1 |[39m [36mimport[39m { [33mBooking[39m } [36mfrom[39m [32m"../../types/Bookings.types"[39m[33m;[39m
+   [90m   |[39m                         [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 2 |[39m [36mimport[39m [33mBookingsRow[39m [36mfrom[39m [32m"./BookingsRow"[39m[33m;[39m
+   [90m 3 |[39m
+   [90m 4 |[39m [36mconst[39m [33mBookingsTable[39m[33m:[39m [33mReact[39m[33m.[39m[33mFC[39m[33m<[39m{ bookings[33m:[39m [33mBooking[39m[] }[33m>[39m [33m=[39m ({ bookings }) [33m=>[39m {[0m
+
+
