@@ -45,7 +45,8 @@ const Navbar = () => {
                 </div>
             </nav>
 
-            <div className="px-4 py-3 hover:bg-[#3d4a6e] cursor-pointer flex gap-3">
+            <div onClick={() => navigate("/")}
+             className="px-4 py-3 hover:bg-[#3d4a6e] cursor-pointer flex gap-3">
                 <LogOut size={20} />
                 Logout
             </div>

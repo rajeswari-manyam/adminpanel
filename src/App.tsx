@@ -8,6 +8,10 @@ import Vehicle from "./pages/vehicle";
 import Settings from "./pages/Settings";
 import UserManagement from "./pages/Users";
 import BookingsTable from "./pages/Bookings";
+import EditProfile from "./pages/Edit";
+import ChangePassword from "./pages/Password";
+import Notifications from "./pages/Notifications";
+import ApplicationSettings from "./pages/Application";
 function App() {
   return (
     <BrowserRouter>
@@ -24,6 +28,10 @@ function App() {
           <Route path="/vehicles" element={<Vehicle />} />
           <Route path="/bookings"  element={<BookingsTable/>}/>
           <Route path="/settings" element={<Settings />} />
+          <Route path="/edit-profile" element={<EditProfile />} />
+          <Route path="/password" element={<ChangePassword />} />
+          <Route path="/notifications" element={<Notifications />} />
+          <Route path="/application-settings" element={<ApplicationSettings />} />
         </Route>
 
       </Routes>
