@@ -2,16 +2,12 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./auth/Login";
-import DashBoard from "./pages/DashBoard";
+import DashBoard from "./pages/users/dashboard/DashBoard";
 import AdminLayout from "./layouts/AdminLayout";
-import Vehicle from "./pages/vehicle";
+import Vehicle from "./pages/vehicles/Vehicle";
 import Settings from "./pages/Settings";
-import UserManagement from "./pages/Users";
-import BookingsTable from "./pages/Bookings";
-import EditProfile from "./pages/Edit";
-import ChangePassword from "./pages/Password";
-import Notifications from "./pages/Notifications";
-import ApplicationSettings from "./pages/Application";
+import UserManagement from "./pages/users/UserManagement";
+import Bookings from "./pages/bookings/Bookings";
 function App() {
   return (
     <BrowserRouter>
@@ -26,7 +22,7 @@ function App() {
           <Route path="/dashboard" element={<DashBoard />} />
           <Route path="/users" element={<UserManagement />} />
           <Route path="/vehicles" element={<Vehicle />} />
-          <Route path="/bookings"  element={<BookingsTable/>}/>
+          <Route path="/bookings" element={<Bookings />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/edit-profile" element={<EditProfile />} />
           <Route path="/password" element={<ChangePassword />} />
