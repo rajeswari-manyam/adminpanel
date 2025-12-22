@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import UserHeader from "./UserHeader";
 import UserSearch from "./UserSearch";
 import UserTable from "./UserTable";
-import UserPagination from "./UserPangination";
+import UserPagination from "./UserPagination";
 
 import { getAllUsers } from "../../services/Api.service";
 import { mapApiUserToUI } from "../../utils/User.mapper";

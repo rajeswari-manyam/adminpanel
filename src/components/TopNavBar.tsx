@@ -1,11 +1,15 @@
 import React from "react";
-const TopNavbar = () => {
-    return (
-        <header className="h-16 w-full bg-[#3F4F7F] flex items-center justify-between px-6 shadow-md">
+interface TopNavbarProps {
+    title?: string;
+}
 
-            {/* LEFT: Page Title ONLY */}
-            <h1 className="text-white text-lg font-semibold">
-                Admin Dashboard
+const TopNavbar: React.FC<TopNavbarProps> = ({ title = "Admin Dashboard" }) => {
+    return (
+        <header className="h-16 w-full bg-[#3F4F7F] flex items-center justify-between px-6 shadow-md transition-all">
+
+            {/* LEFT: Page Title */}
+            <h1 className="text-white text-lg font-semibold tracking-wide">
+                {title}
             </h1>
 
             {/* RIGHT: Notifications + Profile */}

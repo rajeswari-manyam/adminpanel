@@ -1,11 +1,11 @@
 import { Booking } from "../../../types/Bookings.types";
 
 const statusColor: Record<string, string> = {
-  Pending: "bg-yellow-100 text-yellow-700",
-  Confirmed: "bg-green-100 text-green-700",
-  Cancelled: "bg-red-100 text-red-700",
-  Completed: "bg-blue-100 text-blue-700",
-  AutoCancelled: "bg-red-100 text-red-700",
+  "Pending": "bg-yellow-100 text-yellow-700",
+  "Confirmed": "bg-green-100 text-green-700",
+  "Cancelled": "bg-red-100 text-red-700",
+  "AutoCancelled": "bg-red-100 text-red-700",
+  "Completed": "bg-blue-100 text-blue-700",
 };
 
 const BookingsCard: React.FC<{ booking: Booking }> = ({ booking }) => {

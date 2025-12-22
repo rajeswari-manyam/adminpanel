@@ -1,3 +1,5 @@
+import React from 'react';
+
 interface Props {
     currentPage: number;
     totalPages: number;

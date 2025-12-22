@@ -1,3 +1,6 @@
+import React from 'react';
+import { UserUI } from "../../types/User.types";
+
 interface Props {
   searchQuery: string;
   setSearchQuery: (v: string) => void;

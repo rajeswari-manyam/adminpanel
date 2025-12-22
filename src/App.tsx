@@ -12,6 +12,7 @@ import EditProfile from "./pages/Edit";
 import ChangePassword from "./pages/Password";
 import Notifications from "./pages/Notifications";
 import ApplicationSettings from "./pages/Application";
+import VehicleListingScreen from "./pages/VehicleListingscreen";
 function App() {
   return (
     <BrowserRouter>
@@ -25,6 +26,7 @@ function App() {
 
           <Route path="/dashboard" element={<DashBoard />} />
           <Route path="/users" element={<UserManagement />} />
+ <Route path="/users/:userId/vehicles" element={<VehicleListingScreen />} />
           <Route path="/vehicles" element={<Vehicle />} />
           <Route path="/bookings" element={<Bookings />} />
           <Route path="/settings" element={<Settings />} />

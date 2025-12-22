@@ -10,9 +10,10 @@ const filters: FilterStatus[] = [
     "Upcoming",
     "Pending",
     "Confirmed",
-    "Completed",
     "Cancelled",
     "AutoCancelled",
+    "Completed",
+
 ];
 
 const BookingsFilters: React.FC<Props> = ({ activeFilter, onChange }) => {
