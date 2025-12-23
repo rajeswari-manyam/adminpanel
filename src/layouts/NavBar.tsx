@@ -1,6 +1,6 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import RentOnGoLogo from "../assets/icons/RentOnGoLogo.png";
-import { Home, Users, Car, Calendar, CreditCard, Settings, LogOut, X } from "lucide-react";
+import { Home, Users, Car, Calendar, CreditCard, Settings, LogOut } from "lucide-react";
 
 const Navbar = () => {
     const navigate = useNavigate();
@@ -46,7 +46,7 @@ const Navbar = () => {
             </nav>
 
             <div onClick={() => navigate("/")}
-             className="px-4 py-3 hover:bg-[#3d4a6e] cursor-pointer flex gap-3">
+                className="px-4 py-3 hover:bg-[#3d4a6e] cursor-pointer flex gap-3">
                 <LogOut size={20} />
                 Logout
             </div>

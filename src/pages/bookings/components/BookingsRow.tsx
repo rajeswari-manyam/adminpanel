@@ -80,7 +80,7 @@ const BookingsRow: React.FC<{ booking: Booking }> = ({ booking }) => {
                 </span>
             </td>
 
-         
+
         </tr>
     );
 };

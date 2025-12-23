@@ -1,5 +1,5 @@
 const VehicleStatusChart = ({ status }: { status: any }) => {
-    const total = status.approved + status.pending + status.rejected;
+
 
     return (
         <div className="bg-white rounded-xl p-6 shadow-lg">

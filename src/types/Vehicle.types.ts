@@ -73,3 +73,6 @@ export interface UpdateVehicleStatusResponse {
   message: string;
   data: Vehicle;
 }
+
+// Re-export VehicleData from VehiclePage.types
+export type { VehicleData } from './UserDetails.types';

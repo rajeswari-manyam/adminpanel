@@ -1,31 +1,31 @@
 import { FilterStatus } from "../../../types/Bookings.types";
 
-interface Props {
+interface BookingsFiltersProps {
     activeFilter: FilterStatus;
     onChange: (filter: FilterStatus) => void;
 }
 
-const filters: FilterStatus[] = [
-    "All Bookings",
-    "Upcoming",
-    "Pending",
-    "Confirmed",
-    "Cancelled",
-    "AutoCancelled",
-    "Completed",
+const BookingsFilters = ({ activeFilter, onChange }: BookingsFiltersProps) => {
+    const filters: FilterStatus[] = [
+        "All Bookings",
+        "Today",
+        "Upcoming",
+    
+        "Confirmed",
+        "Cancelled",
+        "AutoCancelled",
+        "Completed"
+    ];
 
-];
-
-const BookingsFilters: React.FC<Props> = ({ activeFilter, onChange }) => {
     return (
-        <div className="flex gap-2 mb-6 flex-wrap">
+        <div className="mb-6 flex flex-wrap gap-2">
             {filters.map((filter) => (
                 <button
                     key={filter}
                     onClick={() => onChange(filter)}
                     className={`px-4 py-2 rounded-lg font-medium transition-colors ${activeFilter === filter
-                        ? "bg-indigo-600 text-white shadow-md"
-                        : "bg-white text-gray-700 hover:bg-gray-50 border border-gray-200"
+                            ? "bg-indigo-600 text-white"
+                            : "bg-white text-gray-700 hover:bg-gray-100 border border-gray-300"
                         }`}
                 >
                     {filter}

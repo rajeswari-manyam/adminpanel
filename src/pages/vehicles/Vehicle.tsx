@@ -1,122 +1,347 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { getPendingVehicles, getVerifiedVehicles, updateVehicleStatus } from '../../services/Api.service';
-import type { Vehicle } from '../../types/Vehicle.types';
-import VehicleTabs from './VehicleTabs';
-import VehicleTable from './VehicleTable';
+// import React, { useState, useEffect, useCallback } from 'react';
+// import ApiService from '../../services/Api.service';
+// import type { Vehicle } from '../../types/Vehicle.types';
+// import VehicleTable from './VehicleTable';
+// import Pagination from '../../ui/Pagination';
 
-type VehicleStatus = "All" | "Pending" | "Verified";
-type VehicleType = "All" | "Car" | "Bike";
+// const ITEMS_PER_PAGE = 3;
+
+// const VehicleManagement: React.FC = () => {
+//   const [vehicles, setVehicles] = useState<(Vehicle & { type: "Car" | "Bike" })[]>([]);
+//   const [loading, setLoading] = useState(false);
+//   const [error, setError] = useState<string | null>(null);
+//   const [currentPage, setCurrentPage] = useState(1);
+//   const [vehicleType, setVehicleType] = useState<"Car" | "Bike">("Bike");
+
+//   // Fetch only pending vehicles
+//   const fetchPendingVehicles = useCallback(async () => {
+//     setLoading(true);
+//     setError(null);
+//     try {
+//       const res = await ApiService.getPendingVehicles(vehicleType);
+//       if (res.success) {
+//         const vehiclesWithType = res.data.map((v: Vehicle) => ({
+//           ...v,
+//           type: vehicleType
+//         }));
+//         setVehicles(vehiclesWithType);
+//         setCurrentPage(1); // Reset to first page
+//       } else {
+//         setVehicles([]);
+//       }
+//     } catch (err: any) {
+//       setError(err?.message || "Failed to fetch pending vehicles");
+//       console.error(err);
+//     } finally {
+//       setLoading(false);
+//     }
+//   }, [vehicleType]);
+
+//   useEffect(() => {
+//     fetchPendingVehicles();
+//   }, [fetchPendingVehicles]);
+
+//   // Update vehicle status
+//   const handleStatusUpdate = async (
+//     vehicleId: string,
+//     vehicleType: "Car" | "Bike",
+//     newStatus: "Verified" | "Rejected"
+//   ) => {
+//     try {
+//       const res = await ApiService.updateVehicleStatus(vehicleType, vehicleId, newStatus);
+//       if (res.success) {
+//         alert(`Vehicle ${newStatus.toLowerCase()} successfully!`);
+//         fetchPendingVehicles();
+//       }
+//     } catch (err) {
+//       console.error(err);
+//       alert("Failed to update vehicle status");
+//     }
+//   };
+
+//   // Pagination logic
+//   const totalPages = Math.ceil(vehicles.length / ITEMS_PER_PAGE);
+//   const currentVehicles = vehicles.slice(
+//     (currentPage - 1) * ITEMS_PER_PAGE,
+//     currentPage * ITEMS_PER_PAGE
+//   );
+
+//   const handlePageChange = (page: number) => {
+//     setCurrentPage(page);
+//     window.scrollTo({ top: 0, behavior: 'smooth' });
+//   };
+
+//   return (
+//     <div className="min-h-screen bg-gray-50 p-6">
+//       <div className="flex justify-between items-center mb-6">
+//         <h1 className="text-3xl font-bold">Pending Vehicles</h1>
+
+//         {/* Vehicle Type Toggle */}
+//         <div className="flex gap-2 bg-white rounded-lg shadow p-1">
+//           <button
+//             onClick={() => setVehicleType("Bike")}
+//             className={`px-6 py-2 rounded-md font-medium transition-colors ${
+//               vehicleType === "Bike"
+//                 ? "bg-blue-600 text-white"
+//                 : "bg-transparent text-gray-600 hover:text-blue-600"
+//             }`}
+//           >
+//             Bikes
+//           </button>
+//           <button
+//             onClick={() => setVehicleType("Car")}
+//             className={`px-6 py-2 rounded-md font-medium transition-colors ${
+//               vehicleType === "Car"
+//                 ? "bg-blue-600 text-white"
+//                 : "bg-transparent text-gray-600 hover:text-blue-600"
+//             }`}
+//           >
+//             Cars
+//           </button>
+//         </div>
+//       </div>
+
+//       {error && (
+//         <div className="mb-6 bg-red-50 border border-red-200 rounded-lg p-4">
+//           <p className="text-red-800">{error}</p>
+//           <button
+//             onClick={fetchPendingVehicles}
+//             className="text-red-600 hover:text-red-800 font-medium underline"
+//           >
+//             Retry
+//           </button>
+//         </div>
+//       )}
+
+//       <div className="bg-white rounded-lg shadow">
+//         {loading ? (
+//           <div className="flex justify-center items-center py-12">
+//             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+//           </div>
+//         ) : vehicles.length === 0 ? (
+//           <div className="p-12 text-center text-gray-500">
+//             No pending {vehicleType.toLowerCase()}s found.
+//           </div>
+//         ) : (
+//           <>
+//             <VehicleTable vehicles={currentVehicles} onStatusUpdate={handleStatusUpdate} />
+
+//             {/* Pagination */}
+//             {totalPages > 1 && (
+//               <div className="p-4 flex justify-center">
+//                 <Pagination
+//                   currentPage={currentPage}
+//                   totalItems={vehicles.length}
+//                   itemsPerPage={ITEMS_PER_PAGE}
+//                   onPageChange={handlePageChange}
+//                 />
+//               </div>
+//             )}
+//           </>
+//         )}
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default VehicleManagement;
+
+
+
+
+
+import React, { useState, useEffect, useCallback } from 'react';
+import ApiService from '../../services/Api.service';
+import type { Vehicle } from '../../types/Vehicle.types';
+import VehicleTable from './VehicleTable';
+import Pagination from '../../ui/Pagination';
+
+const ITEMS_PER_PAGE = 3;
+// Use the same API URL as your pending vehicles API
+const VERIFIED_API_URL = "http://192.168.1.15:3000";
 
 const VehicleManagement: React.FC = () => {
-  const [activeStatus, setActiveStatus] = useState<VehicleStatus>("All");
-  const [activeVehicleType, setActiveVehicleType] = useState<VehicleType>("All");
   const [vehicles, setVehicles] = useState<(Vehicle & { type: "Car" | "Bike" })[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [vehicleType, setVehicleType] = useState<"Car" | "Bike">("Bike");
+  const [viewMode, setViewMode] = useState<"pending" | "verified">("pending");
 
-  // Fetch vehicles whenever filters change
-  const fetchVehicles = useCallback(async () => {
+
+  // Fetch pending vehicles (using existing ApiService)
+  const fetchPendingVehicles = useCallback(async () => {
     setLoading(true);
     setError(null);
-
     try {
-      console.log('Fetching vehicles:', { activeStatus, activeVehicleType });
-
-      let allVehicles: (Vehicle & { type: "Car" | "Bike" })[] = [];
-
-      // Determine which vehicle types to fetch
-      const typesToFetch: ("Car" | "Bike")[] =
-        activeVehicleType === "All" ? ["Car", "Bike"] : [activeVehicleType];
-
-      // Fetch vehicles based on status and type filters
-      for (const vType of typesToFetch) {
-        // Fetch Pending vehicles
-        if (activeStatus === "Pending" || activeStatus === "All") {
-          const pendingVehicles = await getPendingVehicles(vType);
-          if (pendingVehicles.success) {
-            allVehicles.push(...pendingVehicles.data.map(v => ({ ...v, type: vType })));
-          }
-        }
-
-        // Fetch Verified vehicles
-        if (activeStatus === "Verified" || activeStatus === "All") {
-          try {
-            const verifiedVehicles = await getVerifiedVehicles(vType);
-            if (verifiedVehicles.success) {
-              allVehicles.push(...verifiedVehicles.data.map(v => ({ ...v, type: vType })));
-            }
-          } catch (err) {
-            console.warn(`Verified ${vType} endpoint not available`);
-          }
-        }
+      const res = await ApiService.getPendingVehicles(vehicleType);
+      if (res.success) {
+        const vehiclesWithType = res.data.map((v: Vehicle) => ({
+          ...v,
+          type: vehicleType
+        }));
+        setVehicles(vehiclesWithType);
+        setCurrentPage(1);
+      } else {
+        setVehicles([]);
       }
-
-      console.log('Fetched vehicles:', allVehicles);
-      setVehicles(allVehicles);
     } catch (err: any) {
-      const errorMessage = err.response?.data?.message || err.message || 'Error fetching vehicles. Please try again.';
-      setError(errorMessage);
-      console.error('Fetch error:', err);
+      setError(err?.message || "Failed to fetch pending vehicles");
+      console.error(err);
     } finally {
       setLoading(false);
     }
-  }, [activeStatus, activeVehicleType]);
+  }, [vehicleType]);
 
+  // Fetch verified vehicles (direct API call to 192.168.1.15:3000)
+  const fetchVerifiedVehicles = useCallback(async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      // Dynamic endpoint based on vehicle type
+      const endpoint = vehicleType === "Car" ? "carverified" : "bikesverified";
+      const url = `${VERIFIED_API_URL}/${endpoint}`;
+
+      console.log(`Fetching verified vehicles from: ${url}`);
+
+      const response = await fetch(url, {
+        method: "GET",
+        redirect: "follow"
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      console.log("Verified vehicles response:", result);
+
+      if (result.data && Array.isArray(result.data)) {
+        const vehiclesWithType = result.data.map((v: Vehicle) => ({
+          ...v,
+          type: vehicleType
+        }));
+        setVehicles(vehiclesWithType);
+        setCurrentPage(1);
+        console.log(`Loaded ${vehiclesWithType.length} verified vehicles`);
+      } else {
+        setVehicles([]);
+      }
+    } catch (err: any) {
+      setError(err?.message || "Failed to fetch verified vehicles");
+      console.error("Fetch verified vehicles error:", err);
+      setVehicles([]);
+    } finally {
+      setLoading(false);
+    }
+  }, [vehicleType]);
+
+  // Fetch based on view mode
   useEffect(() => {
-    fetchVehicles();
-  }, [fetchVehicles]);
+    if (viewMode === "pending") {
+      fetchPendingVehicles();
+    } else if (viewMode === "verified") {
+      fetchVerifiedVehicles();
 
+    }
+  }, [viewMode, fetchPendingVehicles, fetchVerifiedVehicles]);
+
+  // Update vehicle status (using existing ApiService)
   const handleStatusUpdate = async (
     vehicleId: string,
     vehicleType: "Car" | "Bike",
     newStatus: "Verified" | "Rejected"
   ) => {
-    try {
-      const response = await updateVehicleStatus(vehicleType, vehicleId, newStatus);
+    // Only allow status updates for pending vehicles
+    if (viewMode !== "pending") {
+      alert("Cannot update status of verified vehicles");
+      return;
+    }
 
-      if (response.success) {
-        // Refresh the vehicle list after successful update
-        await fetchVehicles();
+    try {
+      const res = await ApiService.updateVehicleStatus(vehicleType, vehicleId, newStatus);
+      if (res.success) {
         alert(`Vehicle ${newStatus.toLowerCase()} successfully!`);
+        fetchPendingVehicles();
       }
     } catch (err) {
-      console.error('Update error:', err);
-      alert('Failed to update vehicle status');
+      console.error(err);
+      alert("Failed to update vehicle status");
     }
+  };
+
+  // Pagination logic
+  const totalPages = Math.ceil(vehicles.length / ITEMS_PER_PAGE);
+  const currentVehicles = vehicles.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE
+  );
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
     <div className="min-h-screen bg-gray-50 p-6">
-      {/* Header */}
-      <div className="mb-6">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Vehicle Management</h1>
-        <p className="text-gray-600">Manage pending and verified vehicles</p>
-      </div>
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-3xl font-bold">
+          {viewMode === "pending" ? "Pending" : "Verified"} Vehicles
+        </h1>
 
-      {/* Tabs */}
-      <div className="bg-white rounded-lg shadow p-6 mb-6">
-        <h2 className="text-xl font-semibold mb-4">Filter Vehicles</h2>
-        <VehicleTabs
-          activeStatus={activeStatus}
-          activeVehicleType={activeVehicleType}
-          setActiveStatus={setActiveStatus}
-          setActiveVehicleType={setActiveVehicleType}
-        />
-      </div>
-
-   
-
-      {/* Error Message */}
-      {error && (
-        <div className="mb-6 bg-red-50 border border-red-200 rounded-lg p-4 flex items-center justify-between">
-          <div className="flex items-center">
-            <svg className="w-5 h-5 text-red-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
-            </svg>
-            <p className="text-red-800">{error}</p>
+        <div className="flex gap-4">
+          {/* View Mode Toggle */}
+          <div className="flex gap-2 bg-white rounded-lg shadow p-1">
+            <button
+              onClick={() => setViewMode("pending")}
+              className={`px-6 py-2 rounded-md font-medium transition-colors ${viewMode === "pending"
+                ? "bg-green-600 text-white"
+                : "bg-transparent text-gray-600 hover:text-green-600"
+                }`}
+            >
+              Pending
+            </button>
+            <button
+              onClick={() => setViewMode("verified")}
+              className={`px-6 py-2 rounded-md font-medium transition-colors ${viewMode === "verified"
+                ? "bg-green-600 text-white"
+                : "bg-transparent text-gray-600 hover:text-green-600"
+                }`}
+            >
+              Verified
+            </button>
           </div>
+
+
+          {/* Vehicle Type Toggle */}
+          <div className="flex gap-2 bg-white rounded-lg shadow p-1">
+            <button
+              onClick={() => setVehicleType("Bike")}
+              className={`px-6 py-2 rounded-md font-medium transition-colors ${vehicleType === "Bike"
+                ? "bg-blue-600 text-white"
+                : "bg-transparent text-gray-600 hover:text-blue-600"
+                }`}
+            >
+              Bikes
+            </button>
+            <button
+              onClick={() => setVehicleType("Car")}
+              className={`px-6 py-2 rounded-md font-medium transition-colors ${vehicleType === "Car"
+                ? "bg-blue-600 text-white"
+                : "bg-transparent text-gray-600 hover:text-blue-600"
+                }`}
+            >
+              Cars
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {error && (
+        <div className="mb-6 bg-red-50 border border-red-200 rounded-lg p-4">
+          <p className="text-red-800">{error}</p>
           <button
-            onClick={fetchVehicles}
+            onClick={viewMode === "pending" ? fetchPendingVehicles : fetchVerifiedVehicles}
             className="text-red-600 hover:text-red-800 font-medium underline"
           >
             Retry
@@ -124,17 +349,34 @@ const VehicleManagement: React.FC = () => {
         </div>
       )}
 
-      {/* Vehicle Table */}
       <div className="bg-white rounded-lg shadow">
         {loading ? (
           <div className="flex justify-center items-center py-12">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
           </div>
+        ) : vehicles.length === 0 ? (
+          <div className="p-12 text-center text-gray-500">
+            No {viewMode} {vehicleType.toLowerCase()}s found.
+          </div>
         ) : (
-          <VehicleTable
-            vehicles={vehicles}
-            onStatusUpdate={handleStatusUpdate}
-          />
+          <>
+            <VehicleTable
+              vehicles={currentVehicles}
+              onStatusUpdate={handleStatusUpdate}
+            />
+
+            {/* Pagination */}
+            {totalPages > 1 && (
+              <div className="p-4 flex justify-center">
+                <Pagination
+                  currentPage={currentPage}
+                  totalItems={vehicles.length}
+                  itemsPerPage={ITEMS_PER_PAGE}
+                  onPageChange={handlePageChange}
+                />
+              </div>
+            )}
+          </>
         )}
       </div>
     </div>

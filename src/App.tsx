@@ -6,13 +6,13 @@ import DashBoard from "./pages/users/dashboard/DashBoard";
 import AdminLayout from "./layouts/AdminLayout";
 import Vehicle from "./pages/vehicles/Vehicle";
 import Settings from "./pages/Settings";
-import UserManagement from "./pages/users/UserManagement";
+import UserManagement from "./pages/users/components/UserManagement";
 import Bookings from "./pages/bookings/Bookings";
 import EditProfile from "./pages/Edit";
 import ChangePassword from "./pages/Password";
 import Notifications from "./pages/Notifications";
 import ApplicationSettings from "./pages/Application";
-import VehicleListingScreen from "./pages/VehicleListingscreen";
+import VehiclePage from "./pages/vehicleScreen/UserDetails";
 function App() {
   return (
     <BrowserRouter>
@@ -26,7 +26,8 @@ function App() {
 
           <Route path="/dashboard" element={<DashBoard />} />
           <Route path="/users" element={<UserManagement />} />
- <Route path="/users/:userId/vehicles" element={<VehicleListingScreen />} />
+          <Route path="/vehicles/:userId" element={<VehiclePage />} />
+
           <Route path="/vehicles" element={<Vehicle />} />
           <Route path="/bookings" element={<Bookings />} />
           <Route path="/settings" element={<Settings />} />

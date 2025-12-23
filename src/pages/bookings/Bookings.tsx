@@ -1,12 +1,219 @@
+// import { useEffect, useState } from "react";
+// import { Booking, ApiBooking, FilterStatus } from "../../types/Bookings.types";
+// import { mapApiBookingToBooking } from "../../types/Bookings.types";
+// import BookingsFilters from "./components/BookingsFilters";
+// import BookingsTable from "./components/BookingsTable";
+// import Pagination from "../../ui/Pagination";
+// import BookingsCard from "./components/BookingCard";
+// import ApiService from "../../services/Api.service";
+
+// const PER_PAGE = 3;
+
+
+// const BOOKING_API_URL = "http://192.168.1.15:3000";
+
+// const BookingsPage = () => {
+//     const [filter, setFilter] = useState<FilterStatus>("All Bookings");
+//     const [page, setPage] = useState(1);
+//     const [bookings, setBookings] = useState<Booking[]>([]);
+//     const [loading, setLoading] = useState(false);
+//     const [error, setError] = useState<string | null>(null);
+
+//     // Fetch bookings based on filter
+//     useEffect(() => {
+//         const fetchBookings = async () => {
+//             setLoading(true);
+//             setError(null);
+//             try {
+//                 const response = await ApiService.getAllBookings(filter);
+//                 console.log("API Response:", response);
+//                 console.log("Response type:", typeof response);
+//                 console.log("Response.data:", response.data);
+
+//                 // Get the array of API bookings - handle different response structures
+//                 let apiBookings: ApiBooking[] = [];
+
+//                 if (Array.isArray(response)) {
+//                     apiBookings = response;
+//                 } else if (Array.isArray(response.data)) {
+//                     apiBookings = response.data;
+//                 } else if (Array.isArray(response.bookings)) {
+//                     apiBookings = response.bookings;
+//                 } else {
+//                     console.warn("Unexpected response structure:", response);
+//                     apiBookings = [];
+//                 }
+
+//                 console.log("API Bookings count:", apiBookings.length);
+//                 console.log("First booking:", apiBookings[0]);
+
+//                 // Transform to UI-friendly format with error handling
+//                 const transformedBookings = apiBookings
+//                     .map((apiBooking, index) => {
+//                         try {
+//                             return mapApiBookingToBooking(apiBooking);
+//                         } catch (err) {
+//                             console.error(`Error transforming booking at index ${index}:`, err);
+//                             console.error("Problematic booking data:", apiBooking);
+//                             return null;
+//                         }
+//                     })
+//                     .filter((booking): booking is Booking => booking !== null);
+
+//                 console.log("Transformed bookings count:", transformedBookings.length);
+//                 setBookings(transformedBookings);
+//                 setPage(1);
+//             } catch (err: any) {
+//                 console.error("Fetch error:", err);
+//                 setError(err.message || "Failed to fetch bookings");
+//                 setBookings([]);
+//             } finally {
+//                 setLoading(false);
+//             }
+//         };
+//         fetchBookings();
+//     }, [filter]);
+
+
+
+
+
+
+
+//     const totalPages = Math.ceil(bookings.length / PER_PAGE);
+//     const paginatedData = bookings.slice((page - 1) * PER_PAGE, page * PER_PAGE);
+
+//     return (
+//         <div className="p-8">
+//             <div className="mb-6">
+//                 <h1 className="text-3xl font-bold mb-2">All Bookings</h1>
+//                 <p className="text-gray-600">
+//                     {loading ? "Loading..." : `${bookings.length} bookings found`}
+//                 </p>
+//             </div>
+
+//             <BookingsFilters activeFilter={filter} onChange={setFilter} />
+
+//             <div className="bg-white rounded-lg shadow overflow-hidden">
+//                 {loading ? (
+//                     <div className="p-12 text-center">
+//                         <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
+//                         <p className="mt-4 text-gray-600">Loading bookings...</p>
+//                     </div>
+//                 ) : error ? (
+//                     <div className="p-12 text-center text-red-600">
+//                         <p>{error}</p>
+//                         <button
+//                             onClick={() => window.location.reload()}
+//                             className="mt-4 px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
+//                         >
+//                             Retry
+//                         </button>
+//                     </div>
+//                 ) : bookings.length === 0 ? (
+//                     <div className="p-12 text-center text-gray-500">
+//                         <p>No bookings found</p>
+//                     </div>
+//                 ) : (
+//                     <>
+//                         {/* MOBILE VIEW */}
+//                         <div className="block md:hidden space-y-4 p-4">
+//                             {paginatedData.map((b) => (
+//                                 <BookingsCard
+//                                     key={b.id}
+//                                     booking={b}
+//                                 />
+//                             ))}
+//                         </div>
+
+//                         <BookingsTable bookings={paginatedData} />
+
+//                         {totalPages > 1 && (
+//                             <Pagination
+//                                 currentPage={page}
+//                                 totalItems={bookings.length}
+//                                 itemsPerPage={PER_PAGE}
+//                                 onPageChange={setPage}
+//                                 label="bookings"
+//                                 theme="blue"
+//                             />
+//                         )}
+//                     </>
+//                 )}
+//             </div>
+//         </div>
+//     );
+// };
+
+// export default BookingsPage;
+
+
+
+
+
+
+
+
+// STEP 1: First, update your Bookings.types.ts file
+// Add "Today" and "Upcoming" to your FilterStatus type:
+
+/*
+export type FilterStatus = 
+    | "All Bookings" 
+    | "Confirmed" 
+    | "Pending" 
+    | "Cancelled"
+    | "Today"
+    | "Upcoming";
+*/
+
+// STEP 2: Then use this updated BookingsPage component:
+
+
+
+
+
+
+
+
+
+
+
 import { useEffect, useState } from "react";
-import { Booking, FilterStatus } from "../../types/Bookings.types";
+import { Booking, ApiBooking, FilterStatus } from "../../types/Bookings.types";
+import { mapApiBookingToBooking } from "../../types/Bookings.types";
 import BookingsFilters from "./components/BookingsFilters";
 import BookingsTable from "./components/BookingsTable";
-import Pagination from "./components/Pagination";
-import { getAllBookings } from "../../services/BookingsServices";
-import { mapApiBookingToBooking } from "../../utils/Bookings.mapper";
+import Pagination from "../../ui/Pagination";
 import BookingsCard from "./components/BookingCard";
+import ApiService from "../../services/Api.service";
+
 const PER_PAGE = 3;
+
+const BOOKING_API_URL = "http://192.168.1.15:3000";
+
+// Helper function to transform flat API response to nested structure
+const transformFlatBooking = (flatBooking: any): ApiBooking => {
+    return {
+        booking: {
+            _id: flatBooking._id,
+            vechileType: flatBooking.vechileType,
+            FromDate: flatBooking.FromDate,
+            ToDate: flatBooking.ToDate,
+            totalPrice: flatBooking.totalPrice,
+            status: flatBooking.status
+        },
+        user: {
+            name: flatBooking.contactName || "Unknown User",
+            email: flatBooking.email || "No email",
+            mobilenumber: flatBooking.contactNumber || "No phone"
+        },
+        vehicle: {
+            CarName: flatBooking.vehicleName || "Vehicle not available",
+            CarNumber: flatBooking.vehicleNumber || "N/A"
+        }
+    };
+};
 
 const BookingsPage = () => {
     const [filter, setFilter] = useState<FilterStatus>("All Bookings");
@@ -15,56 +222,109 @@ const BookingsPage = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
+    // Fetch Today's bookings
+    const fetchTodayBookings = async () => {
+        try {
+            const response = await fetch(`${BOOKING_API_URL}/Today`, {
+                method: "GET",
+                redirect: "follow"
+            });
+            const result = await response.json();
+            console.log("Today API Response:", result);
+
+            // Extract data array and transform to nested structure
+            const flatBookings = result.data || [];
+            return flatBookings.map(transformFlatBooking);
+        } catch (err) {
+            console.error("Error fetching today's bookings:", err);
+            throw err;
+        }
+    };
+
+    // Fetch Upcoming bookings
+    const fetchUpcomingBookings = async () => {
+        try {
+            const response = await fetch(`${BOOKING_API_URL}/upcoming`, {
+                method: "GET",
+                redirect: "follow"
+            });
+            const result = await response.json();
+            console.log("Upcoming API Response:", result);
+
+            // Extract data array and transform to nested structure
+            const flatBookings = result.data || [];
+            return flatBookings.map(transformFlatBooking);
+        } catch (err) {
+            console.error("Error fetching upcoming bookings:", err);
+            throw err;
+        }
+    };
+
+    // Fetch bookings based on filter
     useEffect(() => {
         const fetchBookings = async () => {
             setLoading(true);
             setError(null);
-
             try {
-                const response = await getAllBookings(filter);
+                let apiBookings: ApiBooking[] = [];
 
-                // Map API bookings to UI bookings
-                const mappedBookings = response.data.map(mapApiBookingToBooking);
-                setBookings(mappedBookings);
+                // Check which filter is selected and call appropriate API
+                if (filter === "Today") {
+                    apiBookings = await fetchTodayBookings();
+                } else if (filter === "Upcoming") {
+                    apiBookings = await fetchUpcomingBookings();
+                } else {
+                    // Use existing getAllBookings API for other filters
+                    const response = await ApiService.getAllBookings(filter);
+                    console.log("API Response:", response);
+                    console.log("Response type:", typeof response);
+                    console.log("Response.data:", response.data);
 
-                // Reset to page 1 when filter changes
+                    // Get the array of API bookings - handle different response structures
+                    if (Array.isArray(response)) {
+                        apiBookings = response;
+                    } else if (Array.isArray(response.data)) {
+                        apiBookings = response.data;
+                    } else if (Array.isArray(response.bookings)) {
+                        apiBookings = response.bookings;
+                    } else {
+                        console.warn("Unexpected response structure:", response);
+                        apiBookings = [];
+                    }
+                }
+
+                console.log("API Bookings count:", apiBookings.length);
+                console.log("First booking:", apiBookings[0]);
+
+                // Transform to UI-friendly format with error handling
+                const transformedBookings = apiBookings
+                    .map((apiBooking, index) => {
+                        try {
+                            return mapApiBookingToBooking(apiBooking);
+                        } catch (err) {
+                            console.error(`Error transforming booking at index ${index}:`, err);
+                            console.error("Problematic booking data:", apiBooking);
+                            return null;
+                        }
+                    })
+                    .filter((booking): booking is Booking => booking !== null);
+
+                console.log("Transformed bookings count:", transformedBookings.length);
+                setBookings(transformedBookings);
                 setPage(1);
-
-                console.log(`Loaded ${mappedBookings.length} bookings for filter: ${filter}`);
-            } catch (err) {
-                const errorMessage = err instanceof Error
-                    ? err.message
-                    : "Failed to load bookings";
-
-                console.error("Booking fetch error:", err);
-                setError(errorMessage);
+            } catch (err: any) {
+                console.error("Fetch error:", err);
+                setError(err.message || "Failed to fetch bookings");
                 setBookings([]);
             } finally {
                 setLoading(false);
             }
         };
-
         fetchBookings();
     }, [filter]);
 
-    // Calculate pagination
     const totalPages = Math.ceil(bookings.length / PER_PAGE);
-    const paginatedData = bookings.slice(
-        (page - 1) * PER_PAGE,
-        page * PER_PAGE
-    );
-
-    // Handle filter change
-    const handleFilterChange = (newFilter: FilterStatus) => {
-        setFilter(newFilter);
-    };
-
-    // Handle page change
-    const handlePageChange = (newPage: number) => {
-        setPage(newPage);
-        // Optional: scroll to top when page changes
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    };
+    const paginatedData = bookings.slice((page - 1) * PER_PAGE, page * PER_PAGE);
 
     return (
         <div className="p-8">
@@ -75,10 +335,7 @@ const BookingsPage = () => {
                 </p>
             </div>
 
-            <BookingsFilters
-                activeFilter={filter}
-                onChange={handleFilterChange}
-            />
+            <BookingsFilters activeFilter={filter} onChange={setFilter} />
 
             <div className="bg-white rounded-lg shadow overflow-hidden">
                 {loading ? (
@@ -87,44 +344,42 @@ const BookingsPage = () => {
                         <p className="mt-4 text-gray-600">Loading bookings...</p>
                     </div>
                 ) : error ? (
-                    <div className="p-12 text-center">
-                        <div className="text-red-600 mb-2">⚠️ Error</div>
-                        <p className="text-gray-600">{error}</p>
+                    <div className="p-12 text-center text-red-600">
+                        <p>{error}</p>
                         <button
-                            onClick={() => setFilter("All Bookings")}
-                            className="mt-4 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"
+                            onClick={() => window.location.reload()}
+                            className="mt-4 px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
                         >
-                            Try Again
+                            Retry
                         </button>
                     </div>
                 ) : bookings.length === 0 ? (
                     <div className="p-12 text-center text-gray-500">
-                        <p className="text-lg">No bookings found</p>
-                        <p className="text-sm mt-2">Try changing the filter</p>
+                        <p>No bookings found</p>
                     </div>
                 ) : (
                     <>
-
-                    {/* MOBILE VIEW */}
-<div className="block md:hidden space-y-4">
-  {paginatedData.map((booking) => (
-    <BookingsCard key={booking.id} booking={booking} />
-  ))}
-</div>
-                        <BookingsTable bookings={paginatedData} />
-                        {totalPages > 1 && (
-                            <div className="p-4 flex justify-between items-center border-t">
-                                <p className="text-sm text-gray-600">
-                                    Showing {(page - 1) * PER_PAGE + 1} to{" "}
-                                    {Math.min(page * PER_PAGE, bookings.length)} of{" "}
-                                    {bookings.length} bookings
-                                </p>
-                                <Pagination
-                                    currentPage={page}
-                                    totalPages={totalPages}
-                                    onPageChange={handlePageChange}
+                        {/* MOBILE VIEW */}
+                        <div className="block md:hidden space-y-4 p-4">
+                            {paginatedData.map((b) => (
+                                <BookingsCard
+                                    key={b.id}
+                                    booking={b}
                                 />
-                            </div>
+                            ))}
+                        </div>
+
+                        <BookingsTable bookings={paginatedData} />
+
+                        {totalPages > 1 && (
+                            <Pagination
+                                currentPage={page}
+                                totalItems={bookings.length}
+                                itemsPerPage={PER_PAGE}
+                                onPageChange={setPage}
+                                label="bookings"
+                                theme="blue"
+                            />
                         )}
                     </>
                 )}

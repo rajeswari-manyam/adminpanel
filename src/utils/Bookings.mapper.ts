@@ -1,69 +1,47 @@
-import { ApiBooking, Booking, FilterStatus } from "../types/Bookings.types";
+import { ApiBooking, Booking } from "../types/Bookings.types";
 
-/**
- * Maps API booking response to UI booking model
- */
+const formatDate = (dateStr: string) => {
+  if (!dateStr) return "";
+  const date = new Date(dateStr);
+  if (isNaN(date.getTime())) return "";
+  const day = String(date.getDate()).padStart(2, "0");
+  const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are 0-based
+  const year = date.getFullYear();
+  return `${day}-${month}-${year}`;
+};
 
 
-  // Calculate days difference (minimum 1 day)
-  
-export const mapApiBookingToBooking = (apiBooking: ApiBooking): Booking => {
-  // Calculate days
-  const fromDate = new Date(apiBooking.booking.FromDate);
-  const toDate = new Date(apiBooking.booking.ToDate);
-  const days = Math.ceil((toDate.getTime() - fromDate.getTime()) / (1000 * 60 * 60 * 24)) || 1;
+export const mapApiBookingToBooking = (api: ApiBooking): Booking => {
+  const booking = api.booking;
 
   return {
-    id: apiBooking.booking._id,
-    user: apiBooking.user.name,
-    email: apiBooking.user.email,
-    phone: apiBooking.user.mobilenumber,
-    vehicle: apiBooking.vehicle?.CarName || 'N/A',
-    vehicleNumber: apiBooking.vehicle?.CarNumber || 'N/A',
-    type: apiBooking.booking.vechileType,
-    start: new Date(apiBooking.booking.FromDate).toLocaleDateString('en-GB'),  // Changed from startDate
-    end: new Date(apiBooking.booking.ToDate).toLocaleDateString('en-GB'),      // Changed from endDate
-    days: days,
-    amount: `₹${apiBooking.booking.totalPrice.toLocaleString('en-IN')}`,       // Format as string
-    status: apiBooking.booking.status,
+    id: booking._id,
+
+    // ✅ SAFE ACCESS
+    user: api.user?.name ?? "Unknown User",
+    email: api.user?.email ?? "-",
+    phone: api.user?.mobilenumber ?? "-",
+
+    // ✅ SAFE VEHICLE
+    vehicle: api.vehicle?.CarName ?? "Vehicle not available",
+    vehicleNumber: api.vehicle?.CarNumber ?? "-",
+
+    type: booking.vechileType,
+
+  start: formatDate(booking.FromDate),
+end: formatDate(booking.ToDate),
+
+
+    days: Math.max(
+      1,
+      Math.ceil(
+        (new Date(booking.ToDate).getTime() -
+          new Date(booking.FromDate).getTime()) /
+        (1000 * 60 * 60 * 24)
+      )
+    ),
+
+    amount: `₹${booking.totalPrice}`,
+    status: booking.status,
   };
-};
-
-/**
- * Returns Tailwind CSS classes for status badges
- */
-export const getStatusColor = (status: Exclude<FilterStatus, "All Bookings">): string => {
-  const statusColors: Record<Exclude<FilterStatus, "All Bookings">, string> = {
-    Pending: "bg-yellow-100 text-yellow-800",
-    Confirmed: "bg-blue-100 text-blue-800",
-    Cancelled: "bg-red-100 text-red-800",
-    Completed: "bg-green-100 text-green-800",
-    Upcoming: "bg-purple-100 text-purple-800",
-    AutoCancelled: "bg-red-100 text-red-800",
-  };
-
-  return statusColors[status] || "bg-gray-100 text-gray-800";
-};
-
-/**
- * Formats currency in Indian Rupees
- */
-export const formatCurrency = (amount: number): string => {
-  return new Intl.NumberFormat("en-IN", {
-    style: "currency",
-    currency: "INR",
-    maximumFractionDigits: 0,
-  }).format(amount);
-};
-
-/**
- * Formats date in readable format
- */
-export const formatDate = (dateString: string): string => {
-  const date = new Date(dateString);
-  return date.toLocaleDateString("en-IN", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-  });
 };

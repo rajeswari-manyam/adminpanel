@@ -30,6 +30,12 @@ const getStatusColor = (status: string) => {
             return "bg-gray-100 text-gray-700";
     }
 };
+const formatDate = (dateStr: string) =>
+  new Date(dateStr).toLocaleDateString("en-GB", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  });
 
 /* =========================
    MOBILE CARD COMPONENT
@@ -73,8 +79,9 @@ const BookingsRow: React.FC<{ booking: Booking }> = ({ booking }) => (
         <td className="p-3 border-r">{booking.phone}</td>
         <td className="p-3 border-r">{booking.vehicle}</td>
         <td className="p-3 border-r">{booking.type}</td>
-        <td className="p-3 border-r whitespace-nowrap">{booking.start}</td>
-        <td className="p-3 border-r whitespace-nowrap">{booking.end}</td>
+<td className="p-3 border-r whitespace-nowrap">{formatDate(booking.start)}</td>
+<td className="p-3 border-r whitespace-nowrap">{formatDate(booking.end)}</td>
+
         <td className="p-3 border-r text-center">{booking.days}</td>
         <td className="p-3 border-r">{booking.amount}</td>
         <td className="p-3 border-r">
