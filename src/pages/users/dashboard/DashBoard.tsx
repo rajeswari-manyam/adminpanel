@@ -161,7 +161,6 @@ import BookingsOverview from "./BookingOverView";
 import VehicleStatusChart from "./VehicleStatusCharts";
 import NewUsersChart from "./NewUsersChart";
 import { useUserStore } from "../../../store/UserStore";
-
 // ✅ Import the custom hooks for dynamic stat and booking cards
 import { useStatCards, useBookingCards } from "./DashBoardData";
 
