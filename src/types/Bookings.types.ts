@@ -1,14 +1,14 @@
 // Filter status includes "All Bookings" for UI, but API only uses the actual statuses
 export type FilterStatus =
     | "All Bookings"
-  
+    | "Pending"         // ✅ Add Pending here
     | "Confirmed"
     | "Cancelled"
     | "Completed"
     | "Upcoming"
     | "AutoCancelled"
-    | "Today"
-    | "Upcoming";
+    | "Today";
+
 // API response structure - matches actual API response
 export interface ApiBooking {
     booking: {
@@ -30,7 +30,8 @@ export interface ApiBooking {
     } | null;
 }
 
-// UI-friendly booking structure
+
+
 export interface Booking {
     id: string;
     user: string;
@@ -43,8 +44,9 @@ export interface Booking {
     end: string;
     days: number;
     amount: string;
-    status: Exclude<FilterStatus, "All Bookings">;
+    status: Exclude<FilterStatus, "All Bookings">; // now includes Pending
 }
+
 
 export const mapApiBookingToBooking = (api: ApiBooking): Booking => {
     // Validate that booking exists

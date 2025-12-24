@@ -57,7 +57,7 @@ import {
   CheckCircle,
   Clock,
   AlertTriangle,
-  Car, 
+  Car,
 } from "lucide-react";
 import { CardStat, BookingData } from "./types";
 import { useUserStore } from "../../../store/UserStore";
@@ -69,37 +69,37 @@ export const useStatCards = (): CardStat[] => {
   const pendingVehiclesCount = useUserStore((state) => state.pendingVehiclesCount);
   const approvedVehiclesCount = useUserStore((state) => state.approvedVehiclesCount);
   const totalBookingsCount = useUserStore((state) => state.totalBookingsCount); // ✅ Added
-const navigate = useNavigate();
+  const navigate = useNavigate();
   return [
-    { 
-      title: "Total Users", 
+    {
+      title: "Total Users",
       value: usersCount > 0 ? usersCount.toString() : "Loading...",
-      icon: Users, 
-      color: "bg-blue-500", 
+      icon: Users,
+      color: "bg-blue-500",
       lightColor: "bg-blue-400",
-       path: "/users" // ✅ Navigate to users page
+      path: "/users" // ✅ Navigate to users page
     },
-    { 
-      title: "Pending Vehicles", 
+    {
+      title: "Pending Vehicles",
       value: pendingVehiclesCount.toString(),
-      icon: Car, 
-      color: "bg-orange-500", 
+      icon: Car,
+      color: "bg-orange-500",
       lightColor: "bg-orange-400",
       path: "/vehicles" // ✅ Navigate to vehicles page
     },
-    { 
-      title: "Approved Vehicles", 
+    {
+      title: "Approved Vehicles",
       value: approvedVehiclesCount.toString(),
-      icon: Car, 
-      color: "bg-green-500", 
+      icon: Car,
+      color: "bg-green-500",
       lightColor: "bg-green-400",
       path: "/vehicles" // ✅ Navigate to vehicles page
     },
-    { 
-      title: "Total Bookings", 
+    {
+      title: "Total Bookings",
       value: totalBookingsCount.toString(), // ✅ Dynamic value
-      icon: Calendar, 
-      color: "bg-purple-500", 
+      icon: Calendar,
+      color: "bg-purple-500",
       lightColor: "bg-purple-400",
       path: "/bookings" // ✅ Navigate to bookings page
     },
@@ -113,27 +113,27 @@ export const useBookingCards = (): CardStat[] => {
   const completedBookingsCount = useUserStore((state) => state.completedBookingsCount);
 
   return [
-    { 
-      title: "Today's Bookings", 
+    {
+      title: "Today's Bookings",
       value: totalBookingsCount.toString(), // ✅ Can be updated to today's count if API supports it
-      icon: Clock, 
-      color: "bg-blue-500", 
+      icon: Clock,
+      color: "bg-blue-500",
       lightColor: "bg-blue-400",
       path: "/bookings" // ✅ Navigate to bookings page
     },
-    { 
-      title: "Pending Bookings", 
+    {
+      title: "Pending Bookings",
       value: pendingBookingsCount.toString(), // ✅ Dynamic value
-      icon: AlertTriangle, 
-      color: "bg-orange-500", 
+      icon: AlertTriangle,
+      color: "bg-orange-500",
       lightColor: "bg-orange-400",
       path: "/bookings" // ✅ Navigate to bookings page
     },
-    { 
-      title: "Completed Bookings", 
+    {
+      title: "Completed Bookings",
       value: completedBookingsCount.toString(), // ✅ Dynamic value
-      icon: CheckCircle, 
-      color: "bg-green-500", 
+      icon: CheckCircle,
+      color: "bg-green-500",
       lightColor: "bg-green-400",
       path: "/bookings" // ✅ Navigate to bookings page 
     },

@@ -41,8 +41,8 @@ const UserRow = ({ user }: { user: UserUI }) => {
             <td className="p-3 border-r">
                 <span
                     className={`px-3 py-1 rounded-full text-sm ${user.status === "Active"
-                            ? "bg-green-100 text-green-700"
-                            : "bg-gray-200 text-gray-700"
+                        ? "bg-green-100 text-green-700"
+                        : "bg-gray-200 text-gray-700"
                         }`}
                 >
                     {user.status}
