@@ -187,7 +187,7 @@ import BookingsTable from "./components/BookingsTable";
 import Pagination from "../../ui/Pagination";
 import BookingsCard from "./components/BookingCard";
 import ApiService from "../../services/Api.service";
-
+import { useUserStore } from "../../store/UserStore"; // ✅ Import store
 const PER_PAGE = 3;
 
 const BOOKING_API_URL = "http://192.168.1.15:3000";
@@ -221,7 +221,10 @@ const BookingsPage = () => {
     const [bookings, setBookings] = useState<Booking[]>([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
-
+  // ✅ Get setters from store
+    const setTotalBookingsCount = useUserStore((state) => state.setTotalBookingsCount);
+    const setPendingBookingsCount = useUserStore((state) => state.setPendingBookingsCount);
+    const setCompletedBookingsCount = useUserStore((state) => state.setCompletedBookingsCount);
     // Fetch Today's bookings
     const fetchTodayBookings = async () => {
         try {
