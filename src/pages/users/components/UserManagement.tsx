@@ -89,9 +89,7 @@
 //     );
 // };
 
-// export default UserManagement;
-
-import { useEffect, useMemo, useState } from "react";
+// export default UserManagement;import { useEffect, useMemo, useState } from "react";
 import ApiService from "../../../services/Api.service";
 import UserTable from "./UserTable";
 import Pagination from "../../../ui/Pagination";
@@ -100,7 +98,7 @@ import UserHeader from "./UserHeader";
 import { useUserStore } from "../../../store/UserStore";
 import { mapApiUserToUI } from "../../../utils/User.mapper";
 import { UserUI } from "../../../types/User.types";
-
+import { useEffect, useMemo, useState } from "react";
 const USERS_PER_PAGE = 5;
 
 const UserManagement = () => {
@@ -110,6 +108,7 @@ const UserManagement = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  // ✅ Get setter from store
   const setUsersCount = useUserStore((state) => state.setUsersCount);
 
   useEffect(() => {
@@ -124,6 +123,8 @@ const UserManagement = () => {
       const mappedUsers = data.users.map(mapApiUserToUI);
 
       setUsers(mappedUsers);
+      
+      // ✅ UPDATE STORE - This updates the "Total Users" card on Dashboard
       setUsersCount(mappedUsers.length);
     } catch (err: any) {
       setError(err?.message || "Failed to fetch users");
